@@ -1,7 +1,7 @@
 version: '3'
 services:
   server:
-    image: waelelsafty07/open-book
+    image: waelelsafty07/openbook-app:arm64
     env_file:
       - ./server/.env
     deploy:
