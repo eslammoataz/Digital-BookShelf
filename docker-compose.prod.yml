@@ -4,8 +4,6 @@ services:
     build: 
       context: ./server
       target: production
-    volumes:
-      - ./server:/app/server:ro
     environment:
       - NODE_ENV=production
     command: npm run prod
