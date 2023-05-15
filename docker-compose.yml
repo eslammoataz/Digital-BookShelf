@@ -1,0 +1,58 @@
+version: '3'
+services:
+  server:
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./server/.env
+    depends_on:
+      - mysql
+      - redis
+
+    
+  mysql:
+    image: mysql
+    restart: always
+    volumes:
+      - mysql-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./server/.env
+      
+  redis:
+    image: redis
+
+    
+  # client:
+  #   stdin_open: true
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./client
+  #   depends_on:
+  #     - server  
+  #   volumes:
+  #     - /app/node_modules
+  #     - ./client:/app
+
+
+  nginx:
+    depends_on:
+      - server
+      # - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/default.conf
+    links:
+      # - client
+      - server
+      
+volumes:
+  mysql-db:

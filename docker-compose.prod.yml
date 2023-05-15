@@ -1,0 +1,11 @@
+version: '3'
+services:
+  server:
+    build: 
+      context: ./server
+      target: production
+    environment:
+      - NODE_ENV=production
+    command: npm run prod
+    
+    
