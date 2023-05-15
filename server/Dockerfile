@@ -9,7 +9,8 @@ RUN  npm install
 COPY . .
 EXPOSE 4000
 
-# RUN cd /server & npx sequelize-cli db:migrate
+RUN cd /server && npx sequelize-cli db:migrate
+RUN npm run build
 CMD [ "npm","run","start" ]
 
 FROM base as production
@@ -18,6 +19,7 @@ RUN  npm install --only=production
 COPY . .
 EXPOSE 4000
 EXPOSE 587
-# RUN npx sequelize-cli db:migrate
+RUN cd /server && npx sequelize-cli db:migrate
+RUN npm run build
 
 CMD [ "npm","run","prod" ]
