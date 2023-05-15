@@ -1,4 +1,4 @@
-FROM node:14 as base 
+FROM  --platform=linux/arm64 node:14 as base 
 
 WORKDIR /app
 COPY package.json .
