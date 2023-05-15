@@ -1,0 +1,1 @@
+{"version":3,"file":"bookNotFoundException.js","sourceRoot":"","sources":["../../../src/v1/exceptions/bookNotFoundException.ts"],"names":[],"mappings":";;AACA,mDAA4C;AAE5C,MAAM,qBAAsB,SAAQ,uBAAa;IAC7C,YAAY,EAAU;QAClB,KAAK,CAAC,GAAG,EAAE,gBAAgB,EAAE,YAAY,CAAC,CAAC;IAC/C,CAAC;CACJ;AAED,kBAAe,qBAAqB,CAAC"}

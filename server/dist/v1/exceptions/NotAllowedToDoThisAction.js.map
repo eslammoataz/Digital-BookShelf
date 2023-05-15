@@ -1,0 +1,1 @@
+{"version":3,"file":"NotAllowedToDoThisAction.js","sourceRoot":"","sources":["../../../src/v1/exceptions/NotAllowedToDoThisAction.ts"],"names":[],"mappings":";;AACA,mDAA4C;AAE5C,MAAM,wBAAyB,SAAQ,uBAAa;IAChD;QACI,KAAK,CAAC,GAAG,EAAE,mDAAmD,CAAC,CAAC;IACpE,CAAC;CACJ;AAED,kBAAe,wBAAwB,CAAC"}
