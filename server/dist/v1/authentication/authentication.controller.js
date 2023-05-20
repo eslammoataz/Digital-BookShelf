@@ -56,7 +56,7 @@ class AuthenticationController {
                     user.password = undefined;
                     const tokenData = this.createToken(user);
                     response.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
-                    response.send(user);
+                    response.json({ tokenData, user });
                 }
                 else {
                     next(new WrongCredentialsException_1.default());
@@ -104,7 +104,7 @@ class AuthenticationController {
     }
     createToken(user) {
         const expiresIn = 60 * 60; // an hour
-        const secret = "process.env.JWT_SECRET";
+        const secret = process.env.JWT_SECRET_KEY;
         const dataStoredInToken = {
             _id: String(user.id),
         };

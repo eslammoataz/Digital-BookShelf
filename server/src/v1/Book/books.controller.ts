@@ -32,7 +32,7 @@ class BooksController implements Controller {
 
     getAllBooks = asyncHandler(async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const Books = await this.BookService.getAllBooks()
-        response.status(200).json({page:'page1 fdfdfs',Books});
+        response.status(200).json({page:'page1 fdfdfs', data:Books});
     })
 
     private getBookById = asyncHandler(async (request: express.Request, response: express.Response, next: express.NextFunction) => {

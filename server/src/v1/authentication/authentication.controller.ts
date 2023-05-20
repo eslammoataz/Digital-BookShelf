@@ -42,7 +42,7 @@ class AuthenticationController implements Controller {
 
     private createToken(user: User): TokenData {
         const expiresIn = 60 * 60; // an hour
-        const secret = "process.env.JWT_SECRET";
+        const secret = process.env.JWT_SECRET_KEY;
         const dataStoredInToken: DataStoredInToken = {
             _id: String(user.id),
         };
@@ -83,7 +83,7 @@ class AuthenticationController implements Controller {
                 user.password = undefined;
                 const tokenData = this.createToken(user);
                 response.setHeader('Set-Cookie', [this.createCookie(tokenData)]);
-                response.send(user);
+                response.json({ tokenData, user });
             } else {
                 next(new WrongCredentialsException());
             }

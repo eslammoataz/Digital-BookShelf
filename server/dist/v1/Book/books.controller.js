@@ -28,7 +28,7 @@ class BooksController {
         this.BookService = new books_service_1.default();
         this.getAllBooks = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const Books = yield this.BookService.getAllBooks();
-            response.status(200).send(Books);
+            response.status(200).json({ page: 'page1 fdfdfs', data: Books });
         }));
         this.getBookById = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const id = request.params.id;

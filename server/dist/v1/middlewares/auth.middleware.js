@@ -13,31 +13,30 @@ const jwt = require("jsonwebtoken");
 const AuthenticationTokenMissingException_1 = require("../../v1/exceptions/AuthenticationTokenMissingException");
 const WrongAuthenticationTokenException_1 = require("../../v1/exceptions/WrongAuthenticationTokenException");
 const user_model_1 = require("../users/user.model");
-function authMiddleware(request, response, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const cookies = request.cookies;
-        if (cookies && cookies.Authorization) {
-            const secret = "process.env.JWT_SECRET";
-            try {
-                const verificationResponse = jwt.verify(cookies.Authorization, secret);
-                const id = verificationResponse._id;
-                const user = yield user_model_1.default.findByPk(id);
-                if (user) {
-                    request.user = user;
-                    next();
-                }
-                else {
-                    next(new WrongAuthenticationTokenException_1.default());
-                }
-            }
-            catch (error) {
-                next(new WrongAuthenticationTokenException_1.default());
-            }
-        }
-        else {
-            next(new AuthenticationTokenMissingException_1.default());
-        }
-    });
-}
+const expressAsyncHandler = require("express-async-handler");
+const authMiddleware = expressAsyncHandler((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const cookies = request.cookies;
+    let token;
+    if (request.headers.authorization &&
+        request.headers.authorization.startsWith("Bearer")) {
+        token = request.headers.authorization.split(" ")[1];
+    }
+    else if (cookies && cookies.Authorization) {
+        token = cookies.Authorization;
+    }
+    if (!token) {
+        next(new AuthenticationTokenMissingException_1.default());
+    }
+    const secret = process.env.JWT_SECRET_KEY;
+    const verificationResponse = jwt.verify(token, secret);
+    console.log(verificationResponse);
+    const id = verificationResponse._id;
+    const user = yield user_model_1.default.findByPk(id);
+    if (!user) {
+        next(new WrongAuthenticationTokenException_1.default());
+    }
+    request.user = user;
+    next();
+}));
 exports.default = authMiddleware;
 //# sourceMappingURL=auth.middleware.js.map
