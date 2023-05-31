@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
+const tags_model_1 = require("../../v1/tags/tags.model");
 const DBConfig_1 = require("../../DBConfig");
 const categories_model_1 = require("../categories/categories.model");
 class Book extends sequelize_1.Model {
@@ -49,6 +50,8 @@ Book.init({
         },
     ],
 });
+Book.belongsToMany(tags_model_1.default, { through: 'Book_tags' });
+tags_model_1.default.belongsToMany(Book, { through: 'Book_tags' });
 categories_model_1.default.hasMany(Book, {
     foreignKey: {
         name: 'categoryId',

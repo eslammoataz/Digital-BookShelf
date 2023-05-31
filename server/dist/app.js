@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-// import * as cors from 'cors';
-// import * as compression from 'compression';
+const cors = require("cors");
+const compression = require("compression");
 require("reflect-metadata");
 require("es6-shim");
 const error_middleware_1 = require("./v1/middlewares/error.middleware");
@@ -19,9 +19,9 @@ class App {
         this.initializeErrorHandling();
     }
     initializeMiddlewares() {
-        // this.app.use(cors());
-        // this.app.options("*", cors());
-        // this.app.use(compression());
+        this.app.use(cors());
+        this.app.options("*", cors());
+        this.app.use(compression());
         this.app.use(bodyParser.json());
         this.app.use((req, res, next) => {
             res.setHeader('X-Powered-By', 'Express');

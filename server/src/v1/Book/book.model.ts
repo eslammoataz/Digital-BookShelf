@@ -1,4 +1,5 @@
-import { DataTypes, Model } from "sequelize";
+import { BelongsToManyAddAssociationMixin, BelongsToManyGetAssociationsMixin, DataTypes, Model } from "sequelize";
+import Tag from '../../v1/tags/tags.model';
 import db from "../../DBConfig";
 import Categories from '../categories/categories.model';
 
@@ -15,6 +16,9 @@ class Book extends Model {
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    public setTags!: BelongsToManyAddAssociationMixin<Tag, number>;
+    public getTags!: BelongsToManyGetAssociationsMixin<Tag>;
 }
 Book.init(
     {
@@ -64,6 +68,8 @@ Book.init(
 }
 
 );
+Book.belongsToMany(Tag, { through: 'Book_tags' });
+Tag.belongsToMany(Book, { through: 'Book_tags' });
 Categories.hasMany(Book, {
     foreignKey: {
         name: 'categoryId',

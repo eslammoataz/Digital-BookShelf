@@ -51,7 +51,8 @@ class BooksController {
         }));
         this.createBook = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const BookData = request.body;
-            const createdBook = yield this.BookService.createBook(BookData);
+            const tagNames = BookData.tags;
+            const createdBook = yield this.BookService.createBook(BookData, tagNames);
             const mailSender = new sendEmailWhenCreateBook_1.default().IntializeMail();
             const Notify = new NotificationService_1.default();
             Notify.Services = [mailSender];

@@ -11,10 +11,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const book_model_1 = require("./book.model");
 const categories_model_1 = require("../categories/categories.model");
+const tags_model_1 = require("../tags/tags.model");
 class BookService {
     constructor() {
         this.Books = book_model_1.default;
         this.Category = categories_model_1.default;
+        this.tags = tags_model_1.default;
         this.getAllBooks = () => {
             const books = this.Books.findAll({
                 include: [{
@@ -33,7 +35,13 @@ class BookService {
                     }]
             });
         }));
-        this.createBook = (BookData) => __awaiter(this, void 0, void 0, function* () {
+        this.createBook = (BookData, tagNames) => __awaiter(this, void 0, void 0, function* () {
+            const createdProject = this.Books.create(Object.assign({}, BookData));
+            const tags = Promise.all(tagNames.map(name => this.tags.findOrCreate({ where: { name } })));
+            const data = yield Promise.all([createdProject, tags]);
+            const tagIds = data[1].map(tag => tag[0].id);
+            yield Promise.all([tagIds.forEach(tagId => data[0].setTags(tagId))]);
+            return createdProject;
             return yield this.Books.create(BookData);
         });
         this.deleteBook = (id) => __awaiter(this, void 0, void 0, function* () {

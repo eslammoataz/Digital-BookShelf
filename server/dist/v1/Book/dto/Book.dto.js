@@ -18,5 +18,8 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)()
 ], CreateBookDto.prototype, "author", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)()
+], CreateBookDto.prototype, "tags", void 0);
 exports.default = CreateBookDto;
 //# sourceMappingURL=Book.dto.js.map

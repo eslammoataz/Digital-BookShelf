@@ -2,8 +2,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
-// import * as cors from 'cors';
-// import * as compression from 'compression';
+import * as cors from 'cors';
+import * as compression from 'compression';
 
 
 
@@ -29,9 +29,9 @@ class App {
     }
 
     private initializeMiddlewares() {
-        // this.app.use(cors());
-        // this.app.options("*", cors());
-        // this.app.use(compression());
+        this.app.use(cors());
+        this.app.options("*", cors());
+        this.app.use(compression());
         this.app.use(bodyParser.json());
 
         this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {

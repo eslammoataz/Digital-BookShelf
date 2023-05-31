@@ -32,7 +32,7 @@ class BooksController implements Controller {
 
     getAllBooks = asyncHandler(async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const Books = await this.BookService.getAllBooks()
-        response.status(200).json({page:'page1 fdfdfs', data:Books});
+        response.status(200).json({ page: 'page1 fdfdfs', data: Books });
     })
 
     private getBookById = asyncHandler(async (request: express.Request, response: express.Response, next: express.NextFunction) => {
@@ -58,7 +58,8 @@ class BooksController implements Controller {
 
     private createBook = asyncHandler(async (request: express.Request, response: express.Response, next: express.NextFunction) => {
         const BookData: Book = request.body;
-        const createdBook = await this.BookService.createBook(BookData)
+        const tagNames = BookData.tags;
+        const createdBook = await this.BookService.createBook(BookData, tagNames)
         const mailSender = new sendEmailWhenCreateBook().IntializeMail()
         const Notify = new NotificationService()
         Notify.Services = [mailSender]
