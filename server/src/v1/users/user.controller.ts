@@ -1,8 +1,8 @@
 import * as express from "express";
 import UserData from "./user.interface";
-import UserNotFoundException from "v1/exceptions/userNotFoundException";
+import UserNotFoundException from "../../v1/exceptions/userNotFoundException";
 import * as asyncHandler from "express-async-handler";
-import Controller from "v1/interfaces/controller.interface";
+import Controller from "../../v1/interfaces/controller.interface";
 import UserService from "./user.service";
 import expressAsyncHandler = require("express-async-handler");
 
@@ -15,7 +15,7 @@ class UserController implements Controller {
   }
   public initializeRoutes() {
     this.router.get(this.path, this.getAllUsers);
-    this.router.post(this.path, this.createUser);
+    this.router.post(`${this.path}/createuser`, this.createUser);
     this.router.patch(`${this.path}/:id`, this.editUser);
     this.router.delete(`${this.path}/:id`, this.deleteUser);
   }
@@ -26,6 +26,7 @@ class UserController implements Controller {
       response: express.Response,
       next: express.NextFunction
     ) => {
+      console.log("in get all users");
       const Users = await this.UserService.getAllUsers();
       response.status(200).json({ data: Users });
     }
@@ -38,6 +39,7 @@ class UserController implements Controller {
       next: express.NextFunction
     ) => {
       const userData: UserData = request.body;
+      console.log(request.body);
       const createdUser = await this.UserService.createUser(userData);
       response.send(createdUser);
     }
