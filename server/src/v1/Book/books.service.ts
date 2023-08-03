@@ -1,5 +1,5 @@
 import db from "../../DBConfig";
-import { QueryTypes, Sequelize } from "sequelize";
+import { Op, QueryTypes, Sequelize } from "sequelize";
 import BookModel from "./book.model";
 import CategoryModel from "../categories/categories.model";
 import TagModel from "../tags/tags.model";
@@ -9,7 +9,9 @@ class BookService {
   private Books = BookModel;
   private Category = CategoryModel;
   private tags = TagModel;
-  public getAllBooks = () => {
+  public getAllBooks = (page: number) => {
+    const booksPerPage = 20;
+    const offset = (page - 1) * booksPerPage;
     const books = this.Books.findAll({
       include: [
         {
@@ -17,6 +19,19 @@ class BookService {
           attributes: ["name"],
         },
       ],
+      limit: booksPerPage,
+      offset: offset,
+    });
+    return books;
+  };
+
+  public getBooksBySearch = async (searchWord: String, page: number) => {
+    const booksPerPage = 20;
+    const offset = (page - 1) * booksPerPage;
+    const books = await this.Books.findAll({
+      where: {
+        name: { [Op.like]: `%${searchWord}%` },
+      },
     });
     return books;
   };

@@ -23,6 +23,7 @@ class BooksController implements Controller {
 
   public intializeRoutes() {
     this.router.get(this.path, this.getAllBooks);
+    this.router.get(this.path + "/search", this.getBookBySearch);
     this.router.get(`${this.path}/:id`, this.getBookById);
     this.router.patch(
       `${this.path}/:id`,
@@ -46,8 +47,22 @@ class BooksController implements Controller {
       response: express.Response,
       next: express.NextFunction
     ) => {
-      const Books = await this.BookService.getAllBooks();
+      const page = parseInt(request.query.page as string, 10);
+      const Books = await this.BookService.getAllBooks(page);
       response.status(200).json({ page: "page1 fdfdfs", data: Books });
+    }
+  );
+
+  private getBookBySearch = asyncHandler(
+    async (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      const page = parseInt(req.query.page as string, 10);
+      const searchWord = req.query.searchWord as String;
+      const books = await this.BookService.getBooksBySearch(searchWord, page);
+      res.status(200).json(books);
     }
   );
 
