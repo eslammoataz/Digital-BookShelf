@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRole = void 0;
 const sequelize_1 = require("sequelize");
 const DBConfig_1 = require("../../DBConfig");
 class User extends sequelize_1.Model {
@@ -10,47 +11,49 @@ var UserRole;
     UserRole["USER"] = "user";
     UserRole["MODERATOR"] = "moderator";
 })(UserRole || (UserRole = {}));
+exports.UserRole = UserRole;
 User.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
     },
     name: {
         type: sequelize_1.DataTypes.STRING(255),
-        allowNull: false
+        allowNull: false,
     },
     email: {
         type: sequelize_1.DataTypes.STRING(255),
         unique: true,
-        allowNull: false
+        allowNull: false,
     },
     role: {
         type: sequelize_1.DataTypes.ENUM(...Object.values(UserRole)),
         defaultValue: UserRole.USER,
-        allowNull: false
+        allowNull: false,
     },
     password: {
         type: sequelize_1.DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
     },
     token: {
         type: sequelize_1.DataTypes.TEXT,
-        allowNull: true
-    }, passwordResetExpire: {
+        allowNull: true,
+    },
+    passwordResetExpire: {
         type: sequelize_1.DataTypes.DATE,
-        allowNull: true
-    }
+        allowNull: true,
+    },
 }, {
     sequelize: DBConfig_1.default,
     tableName: "User",
     indexes: [
         {
             unique: true,
-            fields: ['email'],
+            fields: ["email"],
         },
         {
-            fields: ['createdAt'],
+            fields: ["createdAt"],
         },
     ],
 });
