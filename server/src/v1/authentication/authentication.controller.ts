@@ -71,7 +71,7 @@ class AuthenticationController implements Controller {
         }
     }
     private createCookie(tokenData: TokenData) {
-        return `Authorization=${tokenData.token};ww HttpOnly; Max-Age=${tokenData.expiresIn}`;
+        return `Authorization=${tokenData.token};ww HttpOnly; Max-Age=${tokenData.expiresIn} Path='/'`;
     }
 
     private loggingIn = async (request: express.Request, response: express.Response, next: express.NextFunction) => {

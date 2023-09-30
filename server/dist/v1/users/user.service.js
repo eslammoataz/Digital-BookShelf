@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = require("./user.model");
 const bcrypt = require("bcrypt");
+const UserWithThatEmailAlreadyExistsException_1 = require("../exceptions/UserWithThatEmailAlreadyExistsException");
 class UserService {
     constructor() {
         this.User = user_model_1.default;
@@ -20,9 +21,14 @@ class UserService {
         });
         this.createUser = (UserData) => __awaiter(this, void 0, void 0, function* () {
             const { password } = UserData;
+            const { email } = UserData;
+            const userExist = yield this.User.findOne({ where: { email } });
+            if (userExist) {
+                throw new UserWithThatEmailAlreadyExistsException_1.default(UserData.email);
+            }
             const hashedPw = yield bcrypt.hash(password, 12);
             UserData.password = hashedPw;
-            const newUser = yield this.User.create(Object.assign({ UserData }));
+            const newUser = yield this.User.create(UserData);
             return newUser;
         });
         this.editUser = (id, updateUserData) => __awaiter(this, void 0, void 0, function* () {

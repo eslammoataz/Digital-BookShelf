@@ -25,6 +25,7 @@ class UserController {
         }));
         this.createUser = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const userData = request.body;
+            console.log(request.body);
             const createdUser = yield this.UserService.createUser(userData);
             response.send(createdUser);
         }));
@@ -47,7 +48,7 @@ class UserController {
     }
     initializeRoutes() {
         this.router.get(this.path, this.getAllUsers);
-        this.router.post(this.path, this.createUser);
+        this.router.post(`${this.path}/createuser`, this.createUser);
         this.router.patch(`${this.path}/:id`, this.editUser);
         this.router.delete(`${this.path}/:id`, this.deleteUser);
     }

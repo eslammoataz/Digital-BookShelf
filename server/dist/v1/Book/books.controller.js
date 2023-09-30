@@ -23,12 +23,22 @@ const NotificationService_1 = require("../../Notifications/NotificationService")
 const books_service_1 = require("./books.service");
 class BooksController {
     constructor() {
-        this.path = '/books';
+        this.path = "/books";
         this.router = express.Router();
         this.BookService = new books_service_1.default();
         this.getAllBooks = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
-            const Books = yield this.BookService.getAllBooks();
-            response.status(200).json({ page: 'page1 fdfdfs', data: Books });
+            const page = Number(request.query.page) * 1 || 1;
+            // const limit = this.queryString.limit * 1 || 12;
+            // const skip = (page - 1) * limit;
+            // const page = parseInt(request.query.page as string, 10);
+            const Books = yield this.BookService.getAllBooks(page);
+            response.status(200).json({ page: "page1 fdfdfs", data: Books });
+        }));
+        this.getBookBySearch = asyncHandler((req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            const page = Number(req.query.page) * 1 || 1;
+            const searchWord = req.query.searchWord;
+            const books = yield this.BookService.getBooksBySearch(searchWord, page);
+            res.status(200).json(books);
         }));
         this.getBookById = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const id = request.params.id;
@@ -74,10 +84,11 @@ class BooksController {
     }
     intializeRoutes() {
         this.router.get(this.path, this.getAllBooks);
+        this.router.get(this.path + "/search", this.getBookBySearch);
         this.router.get(`${this.path}/:id`, this.getBookById);
         this.router.patch(`${this.path}/:id`, auth_middleware_1.default, (0, validation_middleware_1.default)(Book_dto_1.default, true), this.modifyBook);
         this.router.delete(`${this.path}/:id`, auth_middleware_1.default, this.deleteBook);
-        this.router.post(this.path, auth_middleware_1.default, (0, restrictTo_middleware_1.default)('admin'), (0, validation_middleware_1.default)(Book_dto_1.default), this.createBook);
+        this.router.post(this.path, auth_middleware_1.default, (0, restrictTo_middleware_1.default)("admin"), (0, validation_middleware_1.default)(Book_dto_1.default), this.createBook);
     }
 }
 exports.default = BooksController;

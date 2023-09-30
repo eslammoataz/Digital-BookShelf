@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as asyncHandler from "express-async-handler";
+import * as sharp from "sharp";
 import BookNotFoundException from "../exceptions/bookNotFoundException";
 import Controller from "../interfaces/controller.interface";
 import validationMiddleware from "../middlewares/validation.middleware";
@@ -12,6 +13,8 @@ import sendEmailWhenDeleteBook from "./mail/sendEmailWhenDeleteBook";
 import sendEmailWhenUpdateBook from "./mail/sendEmailWhenUpdateBook";
 import NotificationService from "../../Notifications/NotificationService";
 import BookService from "./books.service";
+import { uploadSingleImage } from "../../v1/middlewares/uploadMiddleware";
+import { v4 as uuidv4 } from 'uuid';
 
 class BooksController implements Controller {
   public path = "/books";
@@ -47,7 +50,11 @@ class BooksController implements Controller {
       response: express.Response,
       next: express.NextFunction
     ) => {
-      const page = parseInt(request.query.page as string, 10);
+      const page = Number(request.query.page) * 1 || 1;
+    // const limit = this.queryString.limit * 1 || 12;
+    // const skip = (page - 1) * limit;
+
+      // const page = parseInt(request.query.page as string, 10);
       const Books = await this.BookService.getAllBooks(page);
       response.status(200).json({ page: "page1 fdfdfs", data: Books });
     }
@@ -59,7 +66,7 @@ class BooksController implements Controller {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      const page = parseInt(req.query.page as string, 10);
+      const page = Number(req.query.page) * 1 || 1;
       const searchWord = req.query.searchWord as String;
       const books = await this.BookService.getBooksBySearch(searchWord, page);
       res.status(200).json(books);
@@ -106,6 +113,29 @@ class BooksController implements Controller {
       const BookData: Book = request.body;
       const tagNames = BookData.tags;
       const createdBook = await this.BookService.createBook(BookData, tagNames);
+      // @ts-ignore
+      if (request.files && request.files.cover_book) {
+        const imageCoverFileName = `book-${uuidv4()}-${Date.now()}-cover.webp`;
+        try {
+      // @ts-ignore
+          await sharp(request.files.cover_book[0].buffer)
+            .resize(600, 600)
+            .toFormat('webp')
+            .webp({ quality: 85 })
+            .toFile(`uploads/products/${imageCoverFileName}`);
+      
+          request.body.imageCover = imageCoverFileName;
+        } catch (error) {
+          // Handle any errors that occurred during image processing or file saving.
+          console.error(error);
+          response.status(500).json({ error: 'Internal Server Error' });
+          return;
+        }
+      } else {
+        // Handle the case where 'cover_book' property is missing in request.files
+        response.status(400).json({ error: 'Missing cover_book in request.files' });
+        return;
+      }
       const mailSender = new sendEmailWhenCreateBook().IntializeMail();
       const Notify = new NotificationService();
       Notify.Services = [mailSender];
