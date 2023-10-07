@@ -114,7 +114,7 @@ class AuthenticationController {
         };
     }
     createCookie(tokenData) {
-        return `Authorization=${tokenData.token};ww HttpOnly; Max-Age=${tokenData.expiresIn}`;
+        return `Authorization=${tokenData.token};ww HttpOnly; Max-Age=${tokenData.expiresIn} Path='/'`;
     }
 }
 exports.default = AuthenticationController;

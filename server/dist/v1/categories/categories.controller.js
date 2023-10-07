@@ -35,6 +35,11 @@ class CategoriesController {
             response.status(200).json(Book);
         }));
         this.modifyCategory = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
+            const CategoryData = request.body;
+            const CategoryId = request.params.id;
+            const modifiedCategory = this.categoryService.updateCategory(CategoryId, CategoryData);
+            console.log(modifiedCategory);
+            response.status(200).send(modifiedCategory[0]);
             // const id = request.params.id;
             // const bookData: Category = request.body;
             // const updateBook = await this.BookService.updateBook(id, bookData);
@@ -55,6 +60,9 @@ class CategoriesController {
             response.send(createdCategory);
         }));
         this.deleteCategory = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
+            const categoryId = request.params.id;
+            yield this.categoryService.deleteCategory(categoryId);
+            response.send('Deleted Successfully');
             // const id = request.params.id;
             // const Book = await this.BookService.deleteBook(id)
             // if (!Book) return next(new BookNotFoundException(id))

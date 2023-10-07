@@ -20,7 +20,7 @@ class App {
     }
     initializeMiddlewares() {
         this.app.use(cors());
-        this.app.options("*", cors());
+        this.app.options('*', cors());
         this.app.use(compression());
         this.app.use(bodyParser.json());
         this.app.use((req, res, next) => {
@@ -38,9 +38,11 @@ class App {
         });
     }
     initializeDataBase() {
-        DBConfig_1.default.sync().then(() => {
+        DBConfig_1.default.sync({})
+            .then(() => {
             console.log('Connection has been established successfully.');
-        }).catch((error) => {
+        })
+            .catch((error) => {
             console.error('Unable to connect to the database: ', error);
         });
     }

@@ -17,34 +17,39 @@ class CategoryService {
         this.Category = categories_model_1.default;
         this.getAllCategories = () => {
             const categories = this.Category.findAll({
-                include: this.Books
+                include: this.Books,
             });
             return categories;
         };
-        this.getBooksByCategoryId = ((categoryId) => __awaiter(this, void 0, void 0, function* () {
+        this.getBooksByCategoryId = (categoryId) => __awaiter(this, void 0, void 0, function* () {
             const books = yield this.Books.findAll({
                 where: { categoryId: categoryId },
             });
             return books;
-        }));
+        });
         this.createCategory = (CategoryData) => __awaiter(this, void 0, void 0, function* () {
-            return yield this.Category.create(CategoryData);
+            const [category, created] = yield this.Category.findOrCreate({
+                where: CategoryData,
+            });
+            return category;
         });
         this.deleteCategory = (id) => __awaiter(this, void 0, void 0, function* () {
             const deleteCategory = yield this.Category.destroy({
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             });
             return deleteCategory;
         });
         this.updateCategory = (id, updateData) => __awaiter(this, void 0, void 0, function* () {
-            const updateCategory = yield this.Category.update(updateData, {
+            yield this.Category.update(updateData, {
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             });
-            return updateCategory;
+            const afterModification = yield this.Category.findByPk(id);
+            // console.log(afterModification);
+            return afterModification;
         });
     }
 }

@@ -13,11 +13,15 @@ const sequelize_1 = require("sequelize");
 const book_model_1 = require("./book.model");
 const categories_model_1 = require("../categories/categories.model");
 const tags_model_1 = require("../tags/tags.model");
+const author_model_1 = require("../Author/author.model");
+const author_service_1 = require("./../Author/author.service");
 class BookService {
     constructor() {
         this.Books = book_model_1.default;
         this.Category = categories_model_1.default;
         this.tags = tags_model_1.default;
+        this.Author = author_model_1.default;
+        this.AuthorService = new author_service_1.default();
         this.getAllBooks = (page) => {
             const booksPerPage = 20;
             const offset = (page - 1) * booksPerPage;
@@ -25,7 +29,7 @@ class BookService {
                 include: [
                     {
                         model: this.Category,
-                        attributes: ["name"],
+                        attributes: ['name'],
                     },
                 ],
                 limit: booksPerPage,
@@ -49,23 +53,25 @@ class BookService {
                 include: [
                     {
                         model: this.Category,
-                        attributes: ["name"],
+                        attributes: ['name'],
                     },
                 ],
             });
-            const tags = yield book.getTags({ attributes: ["name"] });
+            const tags = yield book.getTags({ attributes: ['name'] });
             const tagNames = tags.map((tag) => tag.name);
-            book['tags'] = tagNames;
-            return { book };
+            return { book, tagNames };
         });
         this.createBook = (BookData, tagNames) => __awaiter(this, void 0, void 0, function* () {
+            const authorId = parseInt(BookData.authorId);
+            const author = yield this.AuthorService.getAuthor(authorId);
             const createdProject = this.Books.create(Object.assign({}, BookData));
             const tags = Promise.all(tagNames.map((name) => this.tags.findOrCreate({ where: { name } })));
             const data = yield Promise.all([createdProject, tags]);
             const tagIds = data[1].map((tag) => tag[0].id);
             yield Promise.all([tagIds.forEach((tagId) => data[0].setTags(tagId))]);
+            //setting author and book in the authoor_books table
+            (yield createdProject).setAuthors(author.id);
             return createdProject;
-            return yield this.Books.create(BookData);
         });
         this.deleteBook = (id) => __awaiter(this, void 0, void 0, function* () {
             const deleteBook = yield this.Books.destroy({

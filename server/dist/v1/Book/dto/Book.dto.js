@@ -16,8 +16,8 @@ __decorate([
     (0, class_validator_1.IsString)()
 ], CreateBookDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsString)()
-], CreateBookDto.prototype, "author", void 0);
+    (0, class_validator_1.IsNumberString)()
+], CreateBookDto.prototype, "authorId", void 0);
 __decorate([
     (0, class_validator_1.IsArray)()
 ], CreateBookDto.prototype, "tags", void 0);

@@ -1,49 +1,55 @@
-
-
 import BookModel from '../Book/book.model';
 import CategoryModel from './categories.model';
 
-
 class CategoryService {
-    private Books = BookModel;
-    private Category = CategoryModel;
+  private Books = BookModel;
+  private Category = CategoryModel;
 
-    public getAllCategories = () => {
-        const categories = this.Category.findAll({
-            include: this.Books
-        });
-        return categories;
-    }
+  public getAllCategories = () => {
+    const categories = this.Category.findAll({
+      include: this.Books,
+    });
+    return categories;
+  };
 
-    public getBooksByCategoryId = (async (categoryId) => {
-        const books = await this.Books.findAll({
-            where: { categoryId: categoryId },
-        })
-        return books;
-    })
+  public getBooksByCategoryId = async (categoryId) => {
+    const books = await this.Books.findAll({
+      where: { categoryId: categoryId },
+    });
+    return books;
+  };
 
+  public createCategory = async (CategoryData: any) => {
+    const [category, created] = await this.Category.findOrCreate({
+      where: CategoryData,
+    });
 
-    public createCategory = async (CategoryData: any) => {
-        return await this.Category.create(CategoryData)
-    }
+    return category;
+  };
 
-    public deleteCategory = async (id) => {
-        const deleteCategory = await this.Category.destroy({
-            where: {
-                id: id
-            }
-        });
+  public deleteCategory = async (id) => {
+    const deleteCategory = await this.Category.destroy({
+      where: {
+        id: id,
+      },
+    });
 
-        return deleteCategory;
-    }
-    public updateCategory = async (id, updateData) => {
-        const updateCategory = await this.Category.update(updateData, {
-            where: {
-                id: id
-            }
-        })
-        return updateCategory;
-    }
+    return deleteCategory;
+  };
+
+  public updateCategory = async (id, updateData) => {
+    await this.Category.update(updateData, {
+      where: {
+        id: id,
+      },
+    });
+
+    const afterModification = await this.Category.findByPk(id);
+
+    // console.log(afterModification);
+
+    return afterModification;
+  };
 }
 
 export default CategoryService;

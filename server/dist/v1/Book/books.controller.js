@@ -15,24 +15,59 @@ const bookNotFoundException_1 = require("../exceptions/bookNotFoundException");
 const validation_middleware_1 = require("../middlewares/validation.middleware");
 const Book_dto_1 = require("./dto/Book.dto");
 const auth_middleware_1 = require("../middlewares/auth.middleware");
-const restrictTo_middleware_1 = require("../middlewares/restrictTo.middleware");
-const sendEmailWhenCreateBook_1 = require("./mail/sendEmailWhenCreateBook");
 const sendEmailWhenDeleteBook_1 = require("./mail/sendEmailWhenDeleteBook");
 const sendEmailWhenUpdateBook_1 = require("./mail/sendEmailWhenUpdateBook");
 const NotificationService_1 = require("../../Notifications/NotificationService");
 const books_service_1 = require("./books.service");
+const uploadMiddleware_1 = require("../middlewares/uploadMiddleware");
+const firebase_upload_1 = require("../../firebase.upload");
 class BooksController {
     constructor() {
-        this.path = "/books";
+        this.path = '/books';
         this.router = express.Router();
         this.BookService = new books_service_1.default();
+        this.createBook = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
+            const BookData = request.body;
+            const tagNames = BookData.tags;
+            BookData.cover_book = request.body.downloadURL;
+            const createdBook = yield this.BookService.createBook(BookData, tagNames);
+            // // @ts-ignore
+            // if (request.files && request.files.cover_book) {
+            //   const imageCoverFileName = `book-${uuidv4()}-${Date.now()}-cover.webp`;
+            //   try {
+            //     // @ts-ignore
+            //     await sharp(request.files.cover_book[0].buffer)
+            //       .resize(600, 600)
+            //       .toFormat('webp')
+            //       .webp({ quality: 85 })
+            //       .toFile(`uploads/products/${imageCoverFileName}`);
+            //     request.body.imageCover = imageCoverFileName;
+            //   } catch (error) {
+            //     // Handle any errors that occurred during image processing or file saving.
+            //     console.error(error);
+            //     response.status(500).json({ error: 'Internal Server Error' });
+            //     return;
+            //   }
+            // } else {
+            //   // Handle the case where 'cover_book' property is missing in request.files
+            //   response
+            //     .status(400)
+            //     .json({ error: 'Missing cover_book in request.files' });
+            //   return;
+            // }
+            // const mailSender = new sendEmailWhenCreateBook().IntializeMail();
+            // const Notify = new NotificationService();
+            // Notify.Services = [mailSender];
+            // Notify.Notify();
+            response.send(createdBook);
+        }));
         this.getAllBooks = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const page = Number(request.query.page) * 1 || 1;
             // const limit = this.queryString.limit * 1 || 12;
             // const skip = (page - 1) * limit;
             // const page = parseInt(request.query.page as string, 10);
             const Books = yield this.BookService.getAllBooks(page);
-            response.status(200).json({ page: "page1 fdfdfs", data: Books });
+            response.status(200).json({ page: 'page1 fdfdfs', data: Books });
         }));
         this.getBookBySearch = asyncHandler((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const page = Number(req.query.page) * 1 || 1;
@@ -59,16 +94,6 @@ class BooksController {
             Notify.Notify();
             response.sendStatus(204);
         }));
-        this.createBook = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
-            const BookData = request.body;
-            const tagNames = BookData.tags;
-            const createdBook = yield this.BookService.createBook(BookData, tagNames);
-            const mailSender = new sendEmailWhenCreateBook_1.default().IntializeMail();
-            const Notify = new NotificationService_1.default();
-            Notify.Services = [mailSender];
-            Notify.Notify();
-            response.send(createdBook);
-        }));
         this.deleteBook = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
             const id = request.params.id;
             const Book = yield this.BookService.deleteBook(id);
@@ -84,11 +109,14 @@ class BooksController {
     }
     intializeRoutes() {
         this.router.get(this.path, this.getAllBooks);
-        this.router.get(this.path + "/search", this.getBookBySearch);
+        this.router.get(this.path + '/search', this.getBookBySearch);
         this.router.get(`${this.path}/:id`, this.getBookById);
         this.router.patch(`${this.path}/:id`, auth_middleware_1.default, (0, validation_middleware_1.default)(Book_dto_1.default, true), this.modifyBook);
         this.router.delete(`${this.path}/:id`, auth_middleware_1.default, this.deleteBook);
-        this.router.post(this.path, auth_middleware_1.default, (0, restrictTo_middleware_1.default)("admin"), (0, validation_middleware_1.default)(Book_dto_1.default), this.createBook);
+        this.router.post(this.path, 
+        // authMiddleware,
+        // restrictTo('admin'),
+        (0, uploadMiddleware_1.uploadSingleImage)('image'), (0, validation_middleware_1.default)(Book_dto_1.default), firebase_upload_1.firebaseUpload, this.createBook);
     }
 }
 exports.default = BooksController;

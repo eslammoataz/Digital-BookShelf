@@ -1,13 +1,12 @@
-
-import { IsArray, IsString, } from 'class-validator';
+import { IsArray, IsNumber, IsNumberString, IsString } from 'class-validator';
 
 class CreateBookDto {
   @IsString()
   name: string;
   @IsString()
   description: string;
-  @IsString()
-  author: string;
+  @IsNumberString()
+  authorId: number;
   @IsArray()
   tags: string[];
 }

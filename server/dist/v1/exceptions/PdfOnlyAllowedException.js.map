@@ -1,0 +1,1 @@
+{"version":3,"file":"PdfOnlyAllowedException.js","sourceRoot":"","sources":["../../../src/v1/exceptions/PdfOnlyAllowedException.ts"],"names":[],"mappings":";;AACA,mDAA4C;AAE5C,MAAM,uBAAwB,SAAQ,uBAAa;IAC/C;QACI,KAAK,CAAC,GAAG,EAAE,kBAAkB,CAAC,CAAC;IACnC,CAAC;CACJ;AAED,kBAAe,uBAAuB,CAAC"}
