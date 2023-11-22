@@ -39,8 +39,8 @@ class BooksController implements Controller {
     this.router.delete(`${this.path}/:id`, authMiddleware, this.deleteBook);
     this.router.post(
       this.path,
-      // authMiddleware,
-      // restrictTo('admin'),
+      authMiddleware,
+      restrictTo('admin'),
       uploadSingleImage('image'),
       validationMiddleware(CreateBookDto),
       firebaseUpload,
@@ -144,10 +144,10 @@ class BooksController implements Controller {
       const bookData: Book = request.body;
       const updateBook = await this.BookService.updateBook(id, bookData);
       if (!updateBook) return next(new BookNotFoundException(id));
-      const mailSender = new sendEmailWhenUpdateBook().IntializeMail();
-      const Notify = new NotificationService();
-      Notify.Services = [mailSender];
-      Notify.Notify();
+      // const mailSender = new sendEmailWhenUpdateBook().IntializeMail();
+      // const Notify = new NotificationService();
+      // Notify.Services = [mailSender];
+      // Notify.Notify();
       response.sendStatus(204);
     }
   );
@@ -161,11 +161,11 @@ class BooksController implements Controller {
       const id = request.params.id;
       const Book = await this.BookService.deleteBook(id);
       if (!Book) return next(new BookNotFoundException(id));
-      const mailSender = new sendEmailWhenDeleteBook().IntializeMail();
-      const Notify = new NotificationService();
-      Notify.Services = [mailSender];
-      Notify.Notify();
-      response.sendStatus(204);
+      // const mailSender = new sendEmailWhenDeleteBook().IntializeMail();
+      // const Notify = new NotificationService();
+      // Notify.Services = [mailSender];
+      // Notify.Notify();
+      response.sendStatus(200).send('Deleted successfully');
     }
   );
 }

@@ -15,9 +15,7 @@ const bookNotFoundException_1 = require("../exceptions/bookNotFoundException");
 const validation_middleware_1 = require("../middlewares/validation.middleware");
 const Book_dto_1 = require("./dto/Book.dto");
 const auth_middleware_1 = require("../middlewares/auth.middleware");
-const sendEmailWhenDeleteBook_1 = require("./mail/sendEmailWhenDeleteBook");
-const sendEmailWhenUpdateBook_1 = require("./mail/sendEmailWhenUpdateBook");
-const NotificationService_1 = require("../../Notifications/NotificationService");
+const restrictTo_middleware_1 = require("../middlewares/restrictTo.middleware");
 const books_service_1 = require("./books.service");
 const uploadMiddleware_1 = require("../middlewares/uploadMiddleware");
 const firebase_upload_1 = require("../../firebase.upload");
@@ -88,10 +86,10 @@ class BooksController {
             const updateBook = yield this.BookService.updateBook(id, bookData);
             if (!updateBook)
                 return next(new bookNotFoundException_1.default(id));
-            const mailSender = new sendEmailWhenUpdateBook_1.default().IntializeMail();
-            const Notify = new NotificationService_1.default();
-            Notify.Services = [mailSender];
-            Notify.Notify();
+            // const mailSender = new sendEmailWhenUpdateBook().IntializeMail();
+            // const Notify = new NotificationService();
+            // Notify.Services = [mailSender];
+            // Notify.Notify();
             response.sendStatus(204);
         }));
         this.deleteBook = asyncHandler((request, response, next) => __awaiter(this, void 0, void 0, function* () {
@@ -99,11 +97,11 @@ class BooksController {
             const Book = yield this.BookService.deleteBook(id);
             if (!Book)
                 return next(new bookNotFoundException_1.default(id));
-            const mailSender = new sendEmailWhenDeleteBook_1.default().IntializeMail();
-            const Notify = new NotificationService_1.default();
-            Notify.Services = [mailSender];
-            Notify.Notify();
-            response.sendStatus(204);
+            // const mailSender = new sendEmailWhenDeleteBook().IntializeMail();
+            // const Notify = new NotificationService();
+            // Notify.Services = [mailSender];
+            // Notify.Notify();
+            response.sendStatus(200).send('Deleted successfully');
         }));
         this.intializeRoutes();
     }
@@ -113,10 +111,7 @@ class BooksController {
         this.router.get(`${this.path}/:id`, this.getBookById);
         this.router.patch(`${this.path}/:id`, auth_middleware_1.default, (0, validation_middleware_1.default)(Book_dto_1.default, true), this.modifyBook);
         this.router.delete(`${this.path}/:id`, auth_middleware_1.default, this.deleteBook);
-        this.router.post(this.path, 
-        // authMiddleware,
-        // restrictTo('admin'),
-        (0, uploadMiddleware_1.uploadSingleImage)('image'), (0, validation_middleware_1.default)(Book_dto_1.default), firebase_upload_1.firebaseUpload, this.createBook);
+        this.router.post(this.path, auth_middleware_1.default, (0, restrictTo_middleware_1.default)('admin'), (0, uploadMiddleware_1.uploadSingleImage)('image'), (0, validation_middleware_1.default)(Book_dto_1.default), firebase_upload_1.firebaseUpload, this.createBook);
     }
 }
 exports.default = BooksController;

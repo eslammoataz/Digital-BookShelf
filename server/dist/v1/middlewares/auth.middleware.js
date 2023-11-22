@@ -18,12 +18,13 @@ const authMiddleware = expressAsyncHandler((request, response, next) => __awaite
     const cookies = request.cookies;
     let token;
     if (request.headers.authorization &&
-        request.headers.authorization.startsWith("Bearer")) {
-        token = request.headers.authorization.split(" ")[1];
+        request.headers.authorization.startsWith('Bearer')) {
+        token = request.headers.authorization.split(' ')[1];
     }
     else if (cookies && cookies.Authorization) {
         token = cookies.Authorization;
     }
+    console.log(token);
     if (!token) {
         next(new AuthenticationTokenMissingException_1.default());
     }
