@@ -1,0 +1,1205 @@
+{
+	"info": {
+		"_postman_id": "9dcc9010-4102-4826-89c1-79acc362b69e",
+		"name": "Digital BookShelf",
+		"description": "This API Collection contains sample requests for an Books-ECommerce application..\n\nIt contains the following requests:\n\n**Authentication:**\n\n- Register\n- Login\n    \n\n**Book**\n\n- Get All Books\n- Get Book By Search\n- Get Book By ID\n- Edit Book\n- Delete Book\n- Create Book\n    \n\n**Author**\n\n- Get All Authors\n- Get Author By ID\n- Edit Author\n- Delete Author\n- Create Author\n    \n\nCategories\n\n- Get All Categories\n- Get Category By ID\n- Edit Category\n- Delete Category\n- Create Category\n    \n\nReviews\n\n- Get Reviews\n- Add Review 'Comment'\n- Delete Review\n    \n\n**User**\n\n- Get All Users\n- Edit User\n- Delete User\n- Create User\n    \n\nyou can find more detailed information in the documentation below.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25062735"
+	},
+	"item": [
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "addAuthor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ali@gmail.com\",\r\n    \"description\" : \"this is a description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/author/addauthor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"author",
+								"addauthor"
+							]
+						},
+						"description": "request for creating author author must be registered as a User first -- action restricted to Admins only\n\nresponse :\n\n{  \"id\": 3,  \n\n \"name\": \"example\",   \n\n \"userId\": 3,   \n\n \"updatedAt\": \"2023-10-07T13:56:13.763Z\",    \n\n\"createdAt\": \"2023-10-07T13:56:13.763Z\"\n\n}"
+					},
+					"response": [
+						{
+							"name": "addAuthor",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"ali@gmail.com\",\r\n    \"description\" : \"this is a description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/author/addauthor",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"author",
+										"addauthor"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6e-T3yX49rehjPjI+IoNLY4QO7uSF8\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:44:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 6,\n    \"name\": \"ali\",\n    \"userId\": 1,\n    \"updatedAt\": \"2023-10-07T16:44:00.093Z\",\n    \"createdAt\": \"2023-10-07T16:44:00.093Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete-author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/author/deleteauthor/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"author",
+								"deleteauthor",
+								"4"
+							]
+						},
+						"description": "Deleting Author by adding Authorid as a request parameter\n\n\\-- action restricted to Admins only"
+					},
+					"response": [
+						{
+							"name": "delete-author",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/author/deleteauthor/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"author",
+										"deleteauthor",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14-oRiRgVc6tqvJTlUnR6ZEIXP8KFE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:48:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "deleted successfully"
+						}
+					]
+				},
+				{
+					"name": "get-Author",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/author/getauthor/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"author",
+								"getauthor",
+								"4"
+							]
+						},
+						"description": "get Author by id as a request parameter\n\n\\-- action restricted to Admins only\n\nresponse example:\n\n{\n\n\"id\": 4,\n\n\"name\": \"example\",\n\n\"description\": \"this is a description,\n\n\"userId\": 3,\n\n\"createdAt\": \"2023-10-07T14:00:56.000Z\",\n\n\"updatedAt\": \"2023-10-07T14:00:56.000Z\",\n\n\"User.email\": \"[example@gmail.com](https://mailto:example@gmail.com)\",\n\n\"User.role\": \"user\"\n\n}"
+					},
+					"response": [
+						{
+							"name": "get-Author",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/author/getauthor/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"author",
+										"getauthor",
+										"6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "196"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c4-WecqhzXp5AQAaUng0DMQPidMmE8\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:50:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 6,\n    \"name\": \"ali\",\n    \"description\": \"this is a description\",\n    \"userId\": 1,\n    \"createdAt\": \"2023-10-07T16:44:00.000Z\",\n    \"updatedAt\": \"2023-10-07T16:44:00.000Z\",\n    \"User.email\": \"ali@gmail.com\",\n    \"User.role\": \"user\"\n}"
+						}
+					]
+				},
+				{
+					"name": "editauthor",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"eslam\",\r\n    \"description\": \"this is the author new description after edit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/author/editauthor/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"author",
+								"editauthor",
+								"5"
+							]
+						},
+						"description": "edit Author by id as a request parameter , updating fields\n\n\\-- action restricted to Admins only\n\nresponse example:\n\n{\n\nid\": 5,\n\n\"name\": \"asadsd\",\n\n\"description\": \"this is the author eslam\",\n\n\"userId\": 2,\n\n\"createdAt\": \"2023-10-07T14:03:07.000Z\",\n\n\"updatedAt\": \"2023-10-07T14:11:59.000Z\"\n\n}"
+					},
+					"response": [
+						{
+							"name": "editauthor",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"eslam\",\r\n    \"description\": \"this is the author new description after edit\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/author/editauthor/5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"author",
+										"editauthor",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "174"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ae-facPIxjBGZf8YyeUgodzcbvkIuc\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:50:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 5,\n    \"name\": \"eslam\",\n    \"description\": \"this is the author new description after edit\",\n    \"userId\": 2,\n    \"createdAt\": \"2023-10-07T14:03:07.000Z\",\n    \"updatedAt\": \"2023-10-07T16:50:59.000Z\"\n}"
+						}
+					]
+				}
+			],
+			"description": "Contains All Author endpoints with instructions"
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "create-Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"this is a comment new comm \",\r\n    \"rating\": 5\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/reviews/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"2"
+							]
+						},
+						"description": "adding a comment \"review\" to book as bookid request parameter\n\nresponse example:\n\n{\n\n\"id\": 11,\n\n\"comment\": \"this is a comment new comm \",\n\n\"rating\": 5,\n\n\"bookId\": 2,\n\n\"userId\": 2,\n\n\"updatedAt\": \"2023-10-07T14:15:28.249Z\",\n\n\"createdAt\": \"2023-10-07T14:15:28.249Z\"\n\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "get-Reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/reviews/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"2"
+							]
+						},
+						"description": "getting All reviews for a book with bookId request as a request parameter\n\nresponse example:\n\n{\n\n\"id\": 10,     \n\n   \"comment\": \"this is a comment new comm \",  \n\n      \"rating\": 5,    \n\n    \"createdAt\": \"2023-10-07T13:02:24.000Z\",    \n\n    \"updatedAt\": \"2023-10-07T13:02:24.000Z\",   \n\n    \"userId\": 2,   \n\n     \"bookId\": 2,  \n\n      \"User\": {      \n\n       \"id\": 2,   \n\n         \"name\": \"example\", \n\n           \"email\": \"example@gmail.com\",  \n\n          \"role\": \"admin\",   \n\n         \"password\": \"$2b$10$IimRksVI9dSGEY9IS6ZKF.5rlg3 NcTJe6drtpqN6fxPSJwxcV2aeO\", \n\n           \"token\": null,         \n\n    \"passwordResetExpire\": null,      \n\n      \"createdAt\": \"2023-10-07T12:55:02.000Z\",    \n\n        \"updatedAt\": \"2023-10-07T12:55:02.000Z\"       \n\n }"
+					},
+					"response": []
+				},
+				{
+					"name": "delete-Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/reviews/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"9"
+							]
+						},
+						"description": "deleting request with reviewId as a request parameter"
+					},
+					"response": []
+				}
+			],
+			"description": "Contains All Review - Comments endpoints with instructions"
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "create-Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hghhh",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "uuudsadadasd",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/Nemox/Desktop/e-payment-feature.png"
+								},
+								{
+									"key": "tags",
+									"value": "action",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "horror",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "16",
+									"type": "text"
+								},
+								{
+									"key": "authorId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "paper",
+									"value": "23",
+									"type": "text"
+								},
+								{
+									"key": "view",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						},
+						"description": "creating book with the book data as shown bellow\n\n\\-- action restricted to Admins only"
+					},
+					"response": []
+				},
+				{
+					"name": "get-Books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/books/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contains All Book endpoints with instructions"
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"eslam@gmail.com\",\r\n    \"password\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "login Authentication with email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"example@gmail.com\",\r\n    \"name\":\"example\",\r\n    \"password\":\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "resgistration with email , password and name"
+					},
+					"response": []
+				}
+			],
+			"description": "Contains Authentication endpoints"
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "create-Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"new Category\",\r\n    \"description\":\"new desc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						},
+						"description": "creating categories with name and description\n\nresponse example :\n\n{\n\n \"id\": 15, \n\n   \"name\": \"new catdsadada\",   \n\n \"description\": \"new desc\", \n\n   \"createdAt\": \"2023-10-07T16:06:07.000Z\",  \n\n  \"updatedAt\": \"2023-10-07T16:06:07.000Z\"  \n}"
+					},
+					"response": [
+						{
+							"name": "create-Category",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"new Category\",\r\n    \"description\":\"new desc\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"86-nSfUzJqbrjE+i9M6e2NLbV8ALtE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:51:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 16,\n    \"name\": \"new Category\",\n    \"description\": \"new desc\",\n    \"updatedAt\": \"2023-10-07T16:51:39.389Z\",\n    \"createdAt\": \"2023-10-07T16:51:39.389Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						},
+						"description": "getting all categories with their realted books"
+					},
+					"response": [
+						{
+							"name": "getAllCategories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v1/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"categories"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "147"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"93-HIIIgvNuMCoefEKRE04APqaaMts\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:52:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 16,\n        \"name\": \"new Category\",\n        \"description\": \"new desc\",\n        \"createdAt\": \"2023-10-07T16:51:39.000Z\",\n        \"updatedAt\": \"2023-10-07T16:51:39.000Z\",\n        \"Books\": []\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "edit-Category",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"new Category UPDATED\",\r\n    \"description\": \"new desc UPDATED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								"17"
+							]
+						},
+						"description": "Deleting category with category id as request parameter"
+					},
+					"response": [
+						{
+							"name": "delete-cat",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v1/categories/17",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v1",
+										"categories",
+										"17"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "20"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14-VRPFfX7oYQ6t6eVzvYjyauOK9Tc\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 07 Oct 2023 16:53:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Deleted Successfully"
+						}
+					]
+				},
+				{
+					"name": "get-Category-By-ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"description": "Contains All Category endpoints with instructions"
+		},
+		{
+			"name": "edit-role - ADMIN",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwiaWF0IjoxNjk0OTkwOTE1LCJleHAiOjE2OTQ5OTQ1MTV9.hC0shMhvAD5FnoKbihs4x2IuQ7EoHjAAdTh7V85dCR8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newRole\" : \"user\",\r\n    \"email\": \"ali@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/editrole",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"editrole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"omar@gmail.com\" ,\r\n    \"name\":\"omar\",\r\n    \"password\":\"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/createuser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"createuser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1//users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
